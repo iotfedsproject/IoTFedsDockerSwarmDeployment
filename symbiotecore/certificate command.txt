@@ -1,0 +1,1 @@
+certbot --manual certonly --preferred-challenges dns -d  <domain name> --email <emai>

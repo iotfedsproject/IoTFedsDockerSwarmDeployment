@@ -1,0 +1,1 @@
+docker container run --rm -v $PWD/CoreConfigProperties:/source -v iotfedscore_symbiote-vol-config:/home/CoreConfigProperties -w /source alpine cp -r . /home/CoreConfigProperties/

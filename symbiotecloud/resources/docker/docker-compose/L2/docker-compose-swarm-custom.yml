@@ -1,0 +1,43 @@
+version: "3.5"
+
+x-environment:
+  &default-environment
+  # - JAVA_HTTP_PROXY=-Dhttp.proxyHost=***.***.***.** -Dhttp.proxyPort=****
+  # - JAVA_HTTPS_PROXY=-Dhttps.proxyHost=***.***.***.** -Dhttps.proxyPort=****
+  # - JAVA_SOCKS_PROXY=-DsocksProxyHost=***.***.***.** -DsocksProxyPort=****
+  # - JAVA_NON_PROXY_HOSTS=-Dhttp.nonProxyHosts=*symbiote-enablerconfig|symbiote-aam|symbiote-rh
+  - _JAVA_OPTIONS=-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1 -XX:+PrintFlagsFinal -DSPRING_BOOT_WAIT_FOR_SERVICES=symbiote-rap:8103
+services:
+#  symbiote-ele:
+#    image: symbioteh2020/symbiote-enablerlogicexample:1.2.1
+#    depends_on:
+#      - symbiote-aam
+#    deploy:
+#     resources:
+#       limits:
+#         memory: 350M
+#    networks:
+#      - symbiote
+#    environment: *default-environment
+#    secrets:
+#      - source: eleconfig
+#        target: /home/bootstrap.properties
+  symbiote-rpe:
+    image: symbioteh2020/symbiote-rappluginexample:1.3.1
+    depends_on:
+      - symbiote-aam
+    deploy:
+     resources:
+       limits:
+         memory: 350M
+    networks:
+      - symbiote
+    environment: *default-environment
+    secrets:
+      - source: rpeconfig
+        target: /home/application.properties
+secrets:
+#  eleconfig:
+#    file: ./EnablerLogicExample/bootstrap.properties
+  rpeconfig:
+    file: ./RAPPluginStarter/application.properties
